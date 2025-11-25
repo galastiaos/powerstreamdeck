@@ -1,0 +1,100 @@
+buttons.ui
+STRONG CULPRIT!
+main.ui
+
+file bar
+menuFile
+
+actionExport - export (action? button i think?)<--
+REFERENCES                                        \
+ui_main.py                                         \
+33,34:init                                          \
+218 adding it to the menu bar                        \
+gui.py                                                \
+946 def export_config()->api.export_config()---------| \
+1212 adding a slot(? INVESTIGATE)(export_config)     |  \
+api.py                           /                   |   \
+188 def export_config()->write_state_to_config()<----|    \
+config.py                                                  \
+86 def write_state_to_config()                              \
+                                                             \
+actionImport - vice versa you can guess-----------------------\ 
+REFERENCES
+ui_main.py
+31,32:init
+217 adding it to the menu bar
+gui.py
+956 def import_config()->api.import_config()---------|
+1213 addomg a slot(? INVESTIGATE)(import_config)     |
+api.py                           /                   |
+182 def import_config()->read_state_from_config()<---|
+config.py
+50 def read_state_from_config()
+
+
+add_image
+REFERENCES
+gui.py
+show_button_state_image_dialog()
+                       /
+719 def show_button_state_image_dialog() 
+
+
+new
+exmpt-exempt button 11,0
+REFERENCES
+gui.py
+564
+def build_button_state_form() connection slot(634)-WORKS ON RELOAD/CLICK on other buttons in mock streamdeck
+584                       /
+def build_button_state_form()->tab_ui.setupUi()
+      \
+Ui_ButtonForm()
+
+pages
+main.ui
+REFERENCES
+gui.py
+971 def build_device()
+1228 slot build_device()
+
+TEMP-Flush out later
+add_page - add page button - main.ui 166-189
+remove_page - remove page button - main.ui 192-203
+I added both of these because they have good icons i wanna use for the x and v buttons
+
+write_state_to_config()
+config.py
+172 def _to_button_state() THIS IS WHAT GENERATES THE JSON! FINALLY!
+TODO: investigate
+
+text_font_style - font style thing
+REFERENCES
+gui.py
+631 - adding a slot(? INVESTIGATE)(update_button_attribute_font)
+                                   \
+825 - def update_button_attribute_font()
+api.py
+145 def _key_change_callback()
+371 def set_button_state()
+405 def set_button_text()
+414 def get_button_text()
+418 def set_button_icon()
+428 def get_button_icon()
+432 def get_button_text_horizontal_align()
+436 def set_button_text_horizontal_align()
+445 def set_button_text_vertical_align()
+428 def get_button_text_vertical_align()
+454 def set_button_font_color()
+470 def get_button_font_color()
+474 def set_button_background_color()
+490 def get_button_background_color()
+494 def get_button_icon_pixmap() This is the actual image
+503 def get_button_icon() This is the path
+418 def set_button_icon() This sets the image
+543 def set_button_font()
+573 def get_button_font()
+554 def get_button_font_size()
+
+I'm pushing this EXACTLY how it is to gh. IK if I don't and anyone tries to figure this out will do basically this anyways. I spent way too long for myself and pushed it for you, potential 
+forker, so don't have to! You're welcome :)
