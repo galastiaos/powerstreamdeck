@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 ################################################################################
 ## FIXED version of ui_button.py
 ################################################################################
@@ -107,8 +107,8 @@ class Ui_ButtonForm(object):
         self.label_1 = QLabel(ButtonForm)
         self.formLayout.setWidget(10, QFormLayout.ItemRole.LabelRole, self.label_1)
 
-        self.checkBox = QCheckBox(ButtonForm)
-        self.formLayout.setWidget(10, QFormLayout.ItemRole.FieldRole, self.checkBox)
+        self.globlstat = QCheckBox(ButtonForm)
+        self.formLayout.setWidget(10, QFormLayout.ItemRole.FieldRole, self.globlstat)
 
         self.exmpt = QPushButton(ButtonForm)
         self.formLayout.setWidget(11, QFormLayout.ItemRole.LabelRole, self.exmpt)
@@ -116,17 +116,18 @@ class Ui_ButtonForm(object):
         # FIXED BUTTON ROW
         sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
 
-        self.pushButton1 = QPushButton(ButtonForm)
-        self.pushButton1.setSizePolicy(sizePolicy5)
-        self.pushButton1.setStyleSheet(u"padding: 2px 6px;")
-
-        self.pushButton2 = QPushButton(ButtonForm)
-        self.pushButton2.setSizePolicy(sizePolicy5)
-        self.pushButton2.setStyleSheet(u"padding: 2px 6px;")
-
+        self.setexmpt = QPushButton(ButtonForm)
+        self.setexmpt.setSizePolicy(sizePolicy5)
+        self.setexmpt.setStyleSheet(u"padding: 2px 6px;")
+        self.cancexmpt = QPushButton(ButtonForm)
+        self.cancexmpt.setSizePolicy(sizePolicy5)
+        self.cancexmpt.setStyleSheet(u"padding: 2px 6px;")
+        self.setexmpt.setVisible(False)
+        self.cancexmpt.setVisible(False)
+        self.exmpt.setVisible(False)
         btn_row = QHBoxLayout()
-        btn_row.addWidget(self.pushButton1)
-        btn_row.addWidget(self.pushButton2)
+        btn_row.addWidget(self.setexmpt)
+        btn_row.addWidget(self.cancexmpt)
         self.formLayout.setLayout(11, QFormLayout.ItemRole.FieldRole, btn_row)
 
         self.label_7 = QLabel(ButtonForm)
@@ -162,7 +163,9 @@ class Ui_ButtonForm(object):
         self.label_10.setText("Switch state")
         self.label_1.setText("Global state")
         self.exmpt.setText("Exempt")
-        self.pushButton1.setText("v")
-        self.pushButton2.setText("x")
+        self.setexmpt.setText("v")
+        self.setexmpt.setToolTip("Confirm exempt selection")
+        self.cancexmpt.setText("x")
+        self.cancexmpt.setToolTip("Cancel exempt selection")
         self.label_7.setText("Brightness +/-:")
         self.label_6.setText("Write Text:")

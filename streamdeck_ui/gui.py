@@ -1,4 +1,7 @@
 """Defines the QT powered interface for configuring Stream Decks"""
+#560
+#516
+#589
 import os
 import shlex
 import signal
@@ -512,7 +515,7 @@ def build_button_state_pages():
     page_id = _page()
     button_id = _button()
     active_tab_index = 0
-
+    #print("build_button_state_pages()")
     try:
         if ui.button_states.count() > 0:
             ui.button_states.clear()
@@ -550,13 +553,20 @@ def build_button_state_pages():
         more_than_one_state = button_id is not None and ui.button_states.count() > 1
 
         ui.remove_button_state.setEnabled(more_than_one_state)
-
+        """print("CHILDREN OF UI:")
+        for child in main_window.findChildren(QWidget):
+            print(" -", child.objectName())
+        """
         if some_state:
             ui.button_states.setCurrentIndex(active_tab_index)
             ui.add_button_state.setEnabled(True)
+            #tab_ui.exmpt.setEnabled(True)
+            tab_ui.globlstat.setEnabled(True)
             redraw_button(button_id)
         else:
             ui.add_button_state.setEnabled(False)
+            tab_ui.globlstat.setEnabled(False)
+            #tab_ui.exmpt.setEnabled(False)
     finally:
         blocker.unblock()
 
@@ -579,7 +589,7 @@ def build_button_state_form(tab) -> None:
     tab.children()[0].addWidget(base_widget)
 
     tab.button_form = base_widget
-
+    global tab_ui
     tab_ui = Ui_ButtonForm()
     tab_ui.setupUi(base_widget)
 
@@ -636,6 +646,7 @@ def build_button_state_form(tab) -> None:
     tab_ui.add_image.clicked.connect(partial(show_button_state_image_dialog))
     tab_ui.remove_image.clicked.connect(show_button_state_remove_image_dialog)
     tab_ui.exmpt.clicked.connect(exem)
+    tab_ui.globlstat.stateChanged.connect(globstat)
     tab_ui.text_h_align.clicked.connect(partial(update_align_text_horizontal))
     tab_ui.text_v_align.clicked.connect(partial(update_align_text_vertical))
 
@@ -1197,7 +1208,19 @@ def toggle_dim_all() -> None:
 
 def exem():
     print("hello")
-
+def globstat():
+    if tab_ui.globlstat.isChecked():
+        #print("globlstat checked")
+        #print("setexmpt:", tab_ui.setexmpt)
+        #print("cancexmpt:", tab_ui.cancexmpt)
+        tab_ui.setexmpt.show()
+        tab_ui.cancexmpt.show()
+        tab_ui.exmpt.show()
+    else:
+        #print("globlstat unchecked")
+        tab_ui.setexmpt.hide()
+        tab_ui.cancexmpt.hide()
+        tab_ui.exmpt.hide()
 def create_main_window(api: StreamDeckServer, app: QApplication) -> MainWindow:
     """Creates the main application window and configures slots and signals"""
     global main_window

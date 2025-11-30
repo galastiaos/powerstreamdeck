@@ -51,6 +51,12 @@ def build_button_state_form()->tab_ui.setupUi()
       \
 Ui_ButtonForm()
 
+FUCKING CHRIST I HATE THIS SHIT
+stream_deck_monitor.py 
+80 def _run()->107 streamdeck attached error
+
+gui.py
+564 def build_button_state_form()
 pages
 main.ui
 REFERENCES
