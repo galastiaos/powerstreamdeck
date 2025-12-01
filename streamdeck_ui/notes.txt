@@ -28,7 +28,7 @@ gui.py
 1213 addomg a slot(? INVESTIGATE)(import_config)     |
 api.py                           /                   |
 182 def import_config()->read_state_from_config()<---|
-config.py
+config.py                   /
 50 def read_state_from_config()
 
 
@@ -54,6 +54,16 @@ Ui_ButtonForm()
 FUCKING CHRIST I HATE THIS SHIT
 stream_deck_monitor.py 
 80 def _run()->107 streamdeck attached error
+47 def start()->_run() (thread)
+
+ui_button.py
+change_brightness
+gui.py
+
+gui.py
+1123 def update_button_attribute()->set_button_"change_brightness"()
+api.py
+507 def set_button_change_brightness()
 
 gui.py
 564 def build_button_state_form()
