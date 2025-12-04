@@ -378,6 +378,49 @@ class StreamDeckServer:
                 self._update_button_filters(serial_number, page, button)
                 display_handler = self.display_handlers[serial_number]
                 display_handler.synchronize()
+    
+    def set_button_globst(self, serial_number: str, page: int, button: int, value: bool) -> None:
+        """Sets the 'globst' field of a button state, works for single/multi-state buttons"""
+        btn_multi = self._button_multi_state(serial_number, page, button)
+    
+        # check if it's a multi-state dict
+        if hasattr(btn_multi, "states"):
+            for s in btn_multi.states.values():  # all ButtonState objects
+                s.globst = value
+        else:
+            # fallback: just try state attribute (some builds have single-state buttons)
+            if hasattr(btn_multi, "state") and not isinstance(btn_multi.state, int):
+                btn_multi.state.globst = value
+            else:
+                print("⚠ Could not find ButtonState object for globst")
+                return
+
+        # save & sync
+        self._save_state()
+        self._update_button_filters(serial_number, page, button)
+        display_handler = self.display_handlers[serial_number]
+        display_handler.synchronize()
+    def get_button_globst(self, serial_number: str, page: int, button: int) -> bool:
+        """Safely return the globst value for single/multi-state buttons"""
+        print("api.py - get_button_globst() is running")
+        btn_multi = self._button_multi_state(serial_number, page, button)
+
+        # Multi-state buttons
+        if hasattr(btn_multi, "states"):
+            # just return the first state (or pick current index)
+            current_index = getattr(btn_multi, "state", 0)
+            state_obj = btn_multi.states.get(current_index)
+            if state_obj:
+                return state_obj.globst
+            else:
+                return False
+
+        # Single-state buttons
+        if hasattr(btn_multi, "state") and not isinstance(btn_multi.state, int):
+            return btn_multi.state.globst
+
+        # fallback
+        return False
 
     def get_button_switch_state(self, serial_number: str, page: int, button: int) -> int:
         """Returns the state switch set for the specified button. 0 implies no state switch."""

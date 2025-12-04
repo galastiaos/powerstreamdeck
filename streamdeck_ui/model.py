@@ -19,6 +19,8 @@ class ButtonState:
     switch_state: int = 0
     """Button state to switch, actionable by the button"""
     brightness_change: int = 0
+
+    globst: bool = False
     """Brightness percent change (-/+), actionable by the button"""
     text_vertical_align: str = ""
     """Vertical alignment of the text on the button"""

@@ -193,7 +193,7 @@ def handle_keypress(ui, deck_id: str, key: int, state: bool) -> None:
         brightness_change = api.get_button_change_brightness(deck_id, page, key)
         switch_page = api.get_button_switch_page(deck_id, page, key)
         switch_state = api.get_button_switch_state(deck_id, page, key)
-
+        globst = api.get_button_globst(deck_id, page, key)
         if command:
             try:
                 Popen(shlex.split(command))  # nosec, need to allow execution of arbitrary commands
@@ -647,6 +647,8 @@ def build_button_state_form(tab) -> None:
     tab_ui.remove_image.clicked.connect(show_button_state_remove_image_dialog)
     tab_ui.exmpt.clicked.connect(exem)
     tab_ui.globlstat.stateChanged.connect(globstat)
+    tab_ui.globlstat.stateChanged.connect(partial(update_button_attribute, "globst"))
+
     tab_ui.text_h_align.clicked.connect(partial(update_align_text_horizontal))
     tab_ui.text_v_align.clicked.connect(partial(update_align_text_vertical))
 

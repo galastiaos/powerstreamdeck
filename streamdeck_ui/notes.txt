@@ -64,6 +64,9 @@ gui.py
 1123 def update_button_attribute()->set_button_"change_brightness"()
 api.py
 507 def set_button_change_brightness()
+_button_state
+api.py
+_to_button_state()
 
 gui.py
 564 def build_button_state_form()
