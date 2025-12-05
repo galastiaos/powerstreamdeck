@@ -82,8 +82,14 @@ add_page - add page button - main.ui 166-189
 remove_page - remove page button - main.ui 192-203
 I added both of these because they have good icons i wanna use for the x and v buttons
 
-write_state_to_config()
+gui.py
+963 def export_config()->api.export_config()
+api.py                 /
+188 def export_config()->write_state_to_config()
 config.py
+86 def write_state_to_config()
+
+Wait no it doesnt maybe
 172 def _to_button_state() THIS IS WHAT GENERATES THE JSON! FINALLY!
 TODO: investigate
 

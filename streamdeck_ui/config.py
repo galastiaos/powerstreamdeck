@@ -114,6 +114,7 @@ def _to_deck_states(state: dict) -> Dict[str, DeckState]:
             brightness_dimmed=deck_state["brightness_dimmed"],
             rotation=deck_state["rotation"],
             page=deck_state["page"],
+            #globst=deck_state["globst"]
         )
         for deck_id, deck_state in state.items()
     }

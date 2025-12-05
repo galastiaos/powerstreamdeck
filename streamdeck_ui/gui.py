@@ -193,6 +193,7 @@ def handle_keypress(ui, deck_id: str, key: int, state: bool) -> None:
         brightness_change = api.get_button_change_brightness(deck_id, page, key)
         switch_page = api.get_button_switch_page(deck_id, page, key)
         switch_state = api.get_button_switch_state(deck_id, page, key)
+        print("gui.py - handle_keypress() running")
         globst = api.get_button_globst(deck_id, page, key)
         if command:
             try:
@@ -509,6 +510,7 @@ def button_clicked(clicked_button, buttons) -> None:
 
 
 def build_button_state_pages():
+    print("gui.py - build_button_state_pages() running")
     ui = main_window.ui
     blocker = QSignalBlocker(ui.button_states)
     deck_id = _deck()
@@ -572,6 +574,7 @@ def build_button_state_pages():
 
 
 def build_button_state_form(tab) -> None:
+    print("gui.py - build_button_state_form() running ")
     global selected_button
     global main_window
 
@@ -617,6 +620,8 @@ def build_button_state_form(tab) -> None:
     tab_ui.text_font_size.setValue(button_state.font_size or DEFAULT_FONT_SIZE)
     tab_ui.text_color.setPalette(QPalette(button_state.font_color or DEFAULT_FONT_COLOR))
     tab_ui.background_color.setPalette(QPalette(button_state.background_color or DEFAULT_BACKGROUND_COLOR))
+    tab_ui.globlstat.setChecked(button_state.globst)
+    globstat()
     tab_ui.change_brightness.setValue(button_state.brightness_change)
     tab_ui.switch_page.setValue(button_state.switch_page)
     tab_ui.switch_state.setValue(button_state.switch_state)
@@ -654,6 +659,7 @@ def build_button_state_form(tab) -> None:
 
 
 def enable_button_configuration(ui: Ui_ButtonForm, enabled: bool):
+    print("gui.py - enable_button_configuration() running")
     ui.text.setEnabled(enabled)
     ui.command.setEnabled(enabled)
     ui.keys.setEnabled(enabled)
