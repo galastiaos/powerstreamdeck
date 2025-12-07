@@ -31,7 +31,11 @@ api.py                           /                   |
 config.py                   /
 50 def read_state_from_config()
 
-
+actionAbout - launches about dialogue
+REFERENCES
+1285 gui.py -> main_window.about_dialogue()- slot
+             /
+1097 gui.py class MainWindow > def about_dialogue()
 add_image
 REFERENCES
 gui.py
