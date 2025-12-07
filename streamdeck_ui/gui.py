@@ -9,7 +9,7 @@ import sys
 from functools import partial
 from subprocess import Popen  # nosec - Need to allow users to specify arbitrary commands
 from typing import Dict, List, Optional, Union
-
+from . import main
 from importlib_metadata import PackageNotFoundError, version
 from PySide6.QtCore import QMimeData, QSettings, QSignalBlocker, QSize, Qt, QTimer, QUrl
 from PySide6.QtGui import QAction, QDesktopServices, QDrag, QFont, QIcon, QPalette
@@ -29,7 +29,6 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
-
 from streamdeck_ui.api import StreamDeckServer
 from streamdeck_ui.cli.server import CLIStreamDeckServer
 from streamdeck_ui.config import (
@@ -651,6 +650,8 @@ def build_button_state_form(tab) -> None:
     tab_ui.add_image.clicked.connect(partial(show_button_state_image_dialog))
     tab_ui.remove_image.clicked.connect(show_button_state_remove_image_dialog)
     tab_ui.exmpt.clicked.connect(exem)
+    tab_ui.cancexmpt.clicked.connect(cancexem)
+    tab_ui.setexmpt.clicked.connect(setexem)
     tab_ui.globlstat.stateChanged.connect(globstat)
     tab_ui.globlstat.stateChanged.connect(partial(update_button_attribute, "globst"))
 
@@ -1213,9 +1214,45 @@ def disable_dim_settings(settings: SettingsDialog, _index: int) -> None:
 
 def toggle_dim_all() -> None:
     api.toggle_dimmers()
-
+def setexem():
+    print("setexem")
+    main.setexem()
+def cancexem():
+    print("cancexem")
+    main.cancexem()
 def exem():
-    print("hello")
+    print("exem")
+    main.exem()  # <-- launches Tk window (does NOT block)
+    poll_exem()  # start periodic check
+
+def pump_tk():
+    """Call this once on app startup to keep Tk responsive."""
+    try:
+        import streamdeck_ui.main as main
+        # update the hidden master; this processes pending Tk events
+        main.root_master.update()
+    except Exception:
+        pass
+    # schedule next pump
+    QTimer.singleShot(15, pump_tk)
+
+
+def poll_exem():
+    import streamdeck_ui.main as main
+    # still waiting
+    if not main.leave:
+        QTimer.singleShot(50, poll_exem)
+        return
+
+    # user canceled
+    if main.result is None:
+        print("got states: None, user canceled")
+        return
+
+    # got actual list
+    states = main.result
+    print(f"got states:{states},{len(states)},{type(states)}")
+
 def globstat():
     if tab_ui.globlstat.isChecked():
         #print("globlstat checked")
@@ -1232,10 +1269,9 @@ def globstat():
 def create_main_window(api: StreamDeckServer, app: QApplication) -> MainWindow:
     """Creates the main application window and configures slots and signals"""
     global main_window
-
     main_window = MainWindow()
     ui = main_window.ui
-
+    pump_tk()
     ui.settingsButton.clicked.connect(partial(show_settings, main_window))
     ui.add_page.clicked.connect(handle_new_page)
     ui.remove_page.clicked.connect(handle_delete_page_with_confirmation)
