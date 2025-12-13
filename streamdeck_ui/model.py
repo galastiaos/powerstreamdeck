@@ -21,7 +21,13 @@ class ButtonState:
     brightness_change: int = 0
 
     globst: bool = False
-    exmptlist: list = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    
+    #Do NOT do lists(or other mutable datatypes)i like this. check commit 2aca48c05ff2319723515d80d6aa7bd9c155981c
+    #exmptlist: list = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    #Do them like this
+
+    exmptlist: list = field(default_factory=lambda: [0]*15)
+
     """Brightness percent change (-/+), actionable by the button"""
     text_vertical_align: str = ""
     """Vertical alignment of the text on the button"""
