@@ -21,6 +21,7 @@ class ButtonState:
     brightness_change: int = 0
 
     globst: bool = False
+    exmptlist: list = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     """Brightness percent change (-/+), actionable by the button"""
     text_vertical_align: str = ""
     """Vertical alignment of the text on the button"""

@@ -182,6 +182,7 @@ def _to_button_state(button: dict) -> ButtonState:
         switch_state=button.get("switch_state", 0),
         brightness_change=button.get("brightness_change", 0),
         globst=button.get("globst",False),
+        exmptlist=list(button.get("exmptlist", [0] * 15))
         text_vertical_align=button.get("text_vertical_align", ""),
         text_horizontal_align=button.get("text_horizontal_align", ""),
         font=button.get("font", ""),
@@ -228,6 +229,7 @@ def _to_button_config(button: ButtonState) -> dict:
         "command": button.command,
         "brightness_change": button.brightness_change,
         "globst":button.globst,
+        "exmptlist":button.exmptlist,
         "switch_page": button.switch_page,
         "switch_state": button.switch_state,
         "text_vertical_align": button.text_vertical_align,

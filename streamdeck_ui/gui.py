@@ -1095,7 +1095,7 @@ class MainWindow(QMainWindow):
         self.window_shown = True
 
     def about_dialog(self):
-        title = "About StreamDeck UI"
+        title = "About PowerStreamdeck UI"
         description = "A Linux compatible UI for the Elgato Stream Deck."
         app = QApplication.instance()
         body = [description, "Version {}\n".format(app.applicationVersion())]
