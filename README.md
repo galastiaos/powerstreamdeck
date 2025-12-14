@@ -1,4 +1,4 @@
-[![powerstreamdeck_ui - Linux application to enhance your streamdeck. ](docs/art/logo_large.png)](https://github.com/streamdeck-linux-gui/streamdeck-linux-gui)
+[![powerstreamdeck_ui - Linux application to enhance your streamdeck. ](logo_large.png)](https://github.com/streamdeck-linux-gui/streamdeck-linux-gui)
 _________________
 
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/streamdeck-linux-gui/streamdeck-linux-gui)
