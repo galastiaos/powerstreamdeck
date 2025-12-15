@@ -160,22 +160,36 @@ def start_tk():
         root.after(20, periodic_check)
     except Exception:
         pass
+    update_button_color()
 
 def on_close():
     """Called when user closes window via window manager (X button)."""
     cancexem()
 
 # --- SLOT FUNCTIONS CALLED BY Qt --- #
-
-def exem():
+def exem(initial_states=None):
     """Ensure the Toplevel is created/shown. Non-blocking; Qt must pump Tk events."""
-    global result, leave
+    import streamdeck_ui.api as api
+
+    global result, leave, states
     result = None
     leave = False
-    # Create or show the window (must be called in main thread)
+
+    if initial_states is None:
+        # try to auto-detect a valid button
+        try:
+            # pick the first deck we have
+            deck_id = next(iter(api.decks))
+            page = 0
+            key = 0
+            initial_states = api.get_button_exmpt(deck_id, page, key)
+        except Exception:
+            # fallback if nothing exists yet
+            initial_states = [0] * 15
+
+    states = initial_states.copy()
     start_tk()
     return None
-
 def setexem():
     """Mark Done (collect states)."""
     global leave, result, states

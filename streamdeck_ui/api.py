@@ -378,7 +378,17 @@ class StreamDeckServer:
                 self._update_button_filters(serial_number, page, button)
                 display_handler = self.display_handlers[serial_number]
                 display_handler.synchronize()
-    
+
+    def set_button_exmpt(self, serial_number: str, page: int, button: int, value: list):
+        """Set the 'exmptlist' field of a button"""
+        btn = self._button_state(serial_number, page, button)
+        #btn.state.exmptlist=value
+        btn.exmptlist=value
+    def get_button_exmpt(self, serial_number: str, page: int, button: int) -> list:
+        """Get the 'exmptlist' field of a button"""
+        print(f"api.py - get_button_exmpt({serial_number},{page},{button}) is running")
+        btn = self._button_state(serial_number, page, button)
+        return btn.exmptlist
     def set_button_globst(self, serial_number: str, page: int, button: int, value: bool) -> None:
         """Sets the 'globst' field of a button state, works for single/multi-state buttons"""
         btn_multi = self._button_multi_state(serial_number, page, button)

@@ -194,6 +194,8 @@ def handle_keypress(ui, deck_id: str, key: int, state: bool) -> None:
         switch_state = api.get_button_switch_state(deck_id, page, key)
         print("gui.py - handle_keypress() running")
         globst = api.get_button_globst(deck_id, page, key)
+        exemptlist = api.get_button_exmpt(deck_id, page, key)
+        print(f"THIS IS RUNNING. {exemptlist}")
         if command:
             try:
                 Popen(shlex.split(command))  # nosec, need to allow execution of arbitrary commands
@@ -1222,7 +1224,19 @@ def cancexem():
     main.cancexem()
 def exem():
     print("exem")
-    main.exem()  # <-- launches Tk window (does NOT block)
+    deck_id =_deck()
+    page=_page()
+    
+    if selected_button:
+        try:
+            key = main.buttons.index(selected_button)
+        except ValueError:
+            key = 0  # fallback if button not found
+    else:
+        key = 0  # fallback if nothing selected
+    states = api.get_button_exmpt(deck_id, page, key)
+    print(f"States {states}")
+    main.exem(states)  # <-- launches Tk window (does NOT block)
     poll_exem()  # start periodic check
 
 def pump_tk():
@@ -1251,8 +1265,9 @@ def poll_exem():
 
     # got actual list
     states = main.result
+    #HERE
+    update_button_attribute("exmpt", states)
     print(f"got states:{states},{len(states)},{type(states)}")
-
 def globstat():
     if tab_ui.globlstat.isChecked():
         #print("globlstat checked")
