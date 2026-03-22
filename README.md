@@ -6,7 +6,7 @@ _________________
 
 _________________
 
-**PowerStreamDeck** A Linux compatible UI for the Elgato Stream Deck.
+**PowerStreamDeck** A Linux and Windows compatible UI for the Elgato Stream Deck.
 
 This project is a fork of the project **streamdeck-linux-gui**, a fork and drop-in replacement for [streamdeck_ui](https://github.com/timothycrosley/streamdeck-ui), which was abandoned after its original owner disappeared.
 
@@ -16,7 +16,7 @@ All credit to the orignal authors, and the many contributors to the project.
 
 ## Key Features
 
-* **Linux Compatible**: Enables usage of Stream Deck devices (Original, MK2, Mini and XL) on Linux.
+* **Linux AND Windows Compatible**: Enables usage of Stream Deck devices (Original, MK2, Mini and XL) on Linux and Windows.
 * **Adding more features to the original** adding advanced features to design powerful, psuedo-script based UIs using commands to manage pages and button states.
 * **Multi-device**: Enables connecting and configuring multiple Stream Decks on one computer.
 * **Brightness Control**: Supports controlling the brightness from both the configuration UI and buttons on the device itself.
